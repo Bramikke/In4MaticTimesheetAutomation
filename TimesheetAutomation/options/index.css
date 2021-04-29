@@ -1,0 +1,19 @@
+body {
+    width: 350px;
+    margin: 0 auto;
+}
+
+#headerText {
+    font-size: 30px;
+    font-weight: bold;
+    color: #5fa137;
+    font-family: 'Montserrat';
+}
+
+#container {
+    background: #fff;
+    padding: 10px;
+    margin: 5px 0 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}

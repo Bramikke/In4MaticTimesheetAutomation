@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8" />
+    <title>In4Matic timesheet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+    />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div id="container">
+      <!-- HEADER -->
+      <table id="header">
+        <tr>
+          <td style="width: 250px">
+            <img style="width: 100%" src="../img/i4m_header.png" />
+          </td>
+          <td style="text-align: center">
+            <span id="headerText">TIMESHEET</span>
+          </td>
+        </tr>
+      </table>
+      <!-- SUBHEADER -->
+      <table id="subheader">
+        <tr>
+          <td><b>Employee Name:</b></td>
+          <td id="employee" contenteditable></td>
+          <td></td>
+          <td style="text-align: right">
+            <b>Month/Year:</b>
+            <span id="currentmonth" contenteditable></span>
+          </td>
+        </tr>
+        <tr>
+          <td><b>Client:</b></td>
+          <td id="client" contenteditable></td>
+        </tr>
+        <tr>
+          <td><b>Supervisor Name:</b></td>
+          <td id="supervisor" contenteditable></td>
+        </tr>
+      </table>
+      <!-- CONTENT -->
+      <table id="content">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Regular Hrs.</th>
+            <th>Overtime Hrs.</th>
+            <th>Total Hrs.</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td class="total">TOTAL</td>
+            <td>0</td>
+            <td>0</td>
+            <td class="total">0</td>
+          </tr>
+        </tfoot>
+      </table>
+      <!-- FOOTER -->
+      <table id="footer">
+        <tr>
+          <td>Employee Signature:</td>
+          <td></td>
+          <td></td>
+          <td>Date:</td>
+        </tr>
+        <tr>
+          <td>Supervisor Signature:</td>
+          <td></td>
+          <td></td>
+          <td>Date:</td>
+        </tr>
+      </table>
+      <div id="footerText">
+        <span>In4Matic N.V.</span><br />
+        <span>
+          Industrieweg 190 B-9030 GENT &#8226; Tel.: +32 9 237 26 45 &#8226;
+          E-mail: info@i4m.be &#8226; www.i4m.be
+        </span>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
