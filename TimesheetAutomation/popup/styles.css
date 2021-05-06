@@ -1,18 +1,19 @@
 body {
-    font-size: 12px;
+    font-size: 13px;
     text-align: center;
+    white-space: nowrap;
 }
 
 h3 {
     text-align: left;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: bold;
     color: #5fa137;
     font-family: 'Montserrat';
 }
 
-a:link,
-a:visited {
+a#officient-button:link,
+a#officient-button:visited {
     background-color: #6b7bf4;
     color: white;
     border: 1px solid #9aa5f8;
@@ -22,8 +23,14 @@ a:visited {
     display: inline-block;
 }
 
-a:hover,
-a:active {
+a#officient-button:hover,
+a#officient-button:active {
     background-color: #3445ca;
     color: white;
+}
+
+a#no-officient:link,
+a#no-officient:visited {
+    font-size: 11px;
+    color: gray;
 }

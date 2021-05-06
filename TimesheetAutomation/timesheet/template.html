@@ -11,6 +11,21 @@
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
+    <div id="floatbox">
+      <p>
+        <button id="notes-button" class="button">
+          <img src="../img/notes.png" />
+          <span>Add notes</span>
+        </button>
+      </p>
+      <p>
+        <button id="print-button" class="button">
+          <img src="../img/print.png" />
+          Print timesheet
+        </button>
+      </p>
+      <span id="daysoff-message"></span>
+    </div>
     <div id="container">
       <!-- HEADER -->
       <table id="header">
@@ -31,7 +46,8 @@
           <td></td>
           <td style="text-align: right">
             <b>Month/Year:</b>
-            <span id="currentmonth" contenteditable></span>
+            <input type="month" id="currentmonth" />
+            <span id="printcurrentmonth"></span>
           </td>
         </tr>
         <tr>

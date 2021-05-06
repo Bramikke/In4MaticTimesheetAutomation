@@ -22,7 +22,9 @@
   XHR.send = function (postData) {
     this.addEventListener('load', function () {
       if (
-        this._url.includes('/api/selfservice/secured/days_off/2021/listDaysOff')
+        this._url.match(
+          /api\/selfservice\/secured\/days_off\/\d{4}\/listDaysOff/g
+        )
       ) {
         if (this.responseType != 'blob' && this.responseText) {
           // responseText is string or null

@@ -1,51 +1,104 @@
+let notesEnabled = false;
+
 function getStorageData() {
-  try {
-    chrome.storage.local.get(
-      {
-        employee: '',
-        client: '',
-        supervisor: '',
-      },
-      function (items) {
-        document.getElementById('employee').innerText = items.employee;
-        document.getElementById('client').innerText = items.client;
-        document.getElementById('supervisor').innerText = items.supervisor;
-      }
-    );
-    chrome.storage.local.get(
-      {
-        days_off: {},
-      },
-      (data) => {
-        console.log(data);
-        loadWorkingDays(data?.days_off);
-      }
-    );
-  } catch {
-    loadWorkingDays();
+  chrome.storage.local.get(
+    {
+      employee: '',
+      client: '',
+      supervisor: '',
+    },
+    (items) => {
+      document.getElementById('employee').innerText = items.employee;
+      document.getElementById('client').innerText = items.client;
+      document.getElementById('supervisor').innerText = items.supervisor;
+    }
+  );
+  chrome.storage.local.get(
+    {
+      load_type: null,
+      days_off: null,
+    },
+    (data) => {
+      console.log(data);
+      daysoffLoaded(data);
+      loadMonth(data);
+    }
+  );
+}
+
+function daysoffLoaded(data) {
+  // if timesheet is loaded through officient calendar
+  if (data.load_type === 'officient') {
+    const span = document.getElementById('daysoff-message');
+    if (data.days_off) {
+      span.innerText = 'Off days loaded successfully!';
+      span.classList = 'warn-success';
+    } else {
+      span.innerText = 'Off days not loaded.';
+      span.classList = 'warn-error';
+    }
+    setTimeout(() => {
+      span.innerText = '';
+      span.classList = '';
+    }, 6000);
   }
 }
 
-function loadWorkingDays(days_off) {
-  const date = new Date();
+function loadMonth(data) {
+  let date = new Date();
+  const days_off = data.days_off;
+  // if days_off, find calendar year
+  if (days_off?.company_days_off?.length > 0) {
+    const data_date = new Date(data.days_off.company_days_off[0].date);
+    data_date.setMonth(0);
+    // if year is different from this year, change date
+    if (data_date.getFullYear() !== date.getFullYear()) {
+      date = data_date;
+    }
+  }
   date.setDate(1);
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
   const currentmonth = document.getElementById('currentmonth');
-  currentmonth.innerText = date.toLocaleDateString('en-GB', {
+  // set min and max selectable value to date year
+  if (data.load_type === 'officient') {
+    currentmonth.min = `${year}-01`;
+    currentmonth.max = `${year}-12`;
+  }
+  currentmonth.value = `${year}-${month < 10 ? '0' + month : month}`;
+  // listen for month change events
+  currentmonth.addEventListener('change', (event) => {
+    const value = event.target.value;
+    const newDate = new Date(value);
+    newDate.setDate(1);
+    loadWorkingDays(newDate, days_off);
+  });
+  loadWorkingDays(date, days_off);
+}
+
+function loadWorkingDays(date, days_off) {
+  // set month/year to span which is shown on print
+  const printcurrentmonth = document.getElementById('printcurrentmonth');
+  printcurrentmonth.innerText = date.toLocaleDateString('en-GB', {
     month: 'short',
     year: '2-digit',
   });
   const month = date.getMonth();
   const days = [];
+  const content = document
+    .getElementById('content')
+    .getElementsByTagName('tbody')[0];
+  // clear timesheet table childnodes
+  while (content.firstChild) {
+    content.removeChild(content.lastChild);
+  }
+  // get all working days
   while (date.getMonth() === month) {
     if (date.getDay() !== 0 && date.getDay() !== 6) {
       days.push(new Date(date));
     }
     date.setDate(date.getDate() + 1);
   }
-  const content = document
-    .getElementById('content')
-    .getElementsByTagName('tbody')[0];
-  console.log(days_off);
   days.forEach((day) => {
     // find days_off and personal_days_off and map to total hours off
     const isoDate = day.toISOString().split('T')[0];
@@ -74,18 +127,17 @@ function loadWorkingDays(days_off) {
       month: '2-digit',
       day: '2-digit',
     });
+    addrow.appendChild(addcell1);
     const addcell2 = document.createElement('td');
     addcell2.contentEditable = true;
     addcell2.innerText = (8 - hoursOff).toString();
+    addrow.appendChild(addcell2);
     const addcell3 = document.createElement('td');
     addcell3.contentEditable = true;
     addcell3.innerText = '0';
-    const addcell4 = document.createElement('td');
-    addrow.appendChild(addcell1);
-    addrow.appendChild(addcell2);
     addrow.appendChild(addcell3);
+    const addcell4 = document.createElement('td');
     addrow.appendChild(addcell4);
-
     content.appendChild(addrow);
     addRowListener(addrow);
   });
@@ -122,18 +174,23 @@ function addRow(e) {
     const addrow = document.createElement('tr');
     const addcell1 = document.createElement('td');
     addcell1.contentEditable = true;
+    addrow.appendChild(addcell1);
     const addcell2 = document.createElement('td');
     addcell2.contentEditable = true;
     addcell2.innerText = '8';
+    addrow.appendChild(addcell2);
     const addcell3 = document.createElement('td');
     addcell3.contentEditable = true;
     addcell3.innerText = '0';
+    addrow.appendChild(addcell3);
     const addcell4 = document.createElement('td');
     addcell4.innerText = '8';
-    addrow.appendChild(addcell1);
-    addrow.appendChild(addcell2);
-    addrow.appendChild(addcell3);
     addrow.appendChild(addcell4);
+    if (notesEnabled) {
+      const addcell5 = document.createElement('td');
+      addcell5.contentEditable = true;
+      addrow.appendChild(addcell5);
+    }
 
     currentrow.parentNode.insertBefore(addrow, currentrow.nextSibling);
     addRowListener(addrow);
@@ -145,10 +202,10 @@ function calculateTotals() {
   let total_regularhours = 0;
   let total_overtimehours = 0;
   let total_totalhours = 0;
-  const content = document
+  const tbody = document
     .getElementById('content')
     .getElementsByTagName('tbody')[0];
-  const contentrows = content.getElementsByTagName('tr');
+  const contentrows = tbody.getElementsByTagName('tr');
   for (let row of contentrows) {
     total_regularhours += Number(row.children[1].innerText);
     total_overtimehours += Number(row.children[2].innerText);
@@ -166,4 +223,38 @@ function calculateTotals() {
   footercells[3].innerText = total_totalhours;
 }
 
+function listenPrint() {
+  const button = document.getElementById('print-button');
+  button.addEventListener('click', () => {
+    print();
+  });
+}
+
+function listenNotes() {
+  const button = document.getElementById('notes-button');
+  button.addEventListener('click', () => {
+    const tbody = document
+      .getElementById('content')
+      .getElementsByTagName('tbody')[0];
+    const contentrows = tbody.getElementsByTagName('tr');
+    for (let row of contentrows) {
+      if (!notesEnabled) {
+        const td = document.createElement('td');
+        td.contentEditable = true;
+        row.appendChild(td);
+      } else {
+        row.removeChild(row.lastChild);
+      }
+    }
+    if (!notesEnabled) {
+      button.classList = 'button active';
+    } else {
+      button.classList = 'button';
+    }
+    notesEnabled = !notesEnabled;
+  });
+}
+
+listenPrint();
+listenNotes();
 getStorageData();

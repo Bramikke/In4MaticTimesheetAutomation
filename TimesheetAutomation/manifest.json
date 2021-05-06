@@ -3,7 +3,7 @@
 
     "name": "Timesheet Automation",
     "description": "Automatically generate timesheet based on Officient.io",
-    "version": "1.0",
+    "version": "2.0",
 
     "permissions": ["activeTab", "storage", "tabs", "https://selfservice.officient.io/daysoff"],
 
