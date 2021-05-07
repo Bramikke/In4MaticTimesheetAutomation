@@ -2,7 +2,7 @@
 <html lang="nl">
   <head>
     <meta charset="utf-8" />
-    <title>In4Matic timesheet</title>
+    <title>Timesheet</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat"
@@ -31,7 +31,7 @@
       <table id="header">
         <tr>
           <td style="width: 250px">
-            <img style="width: 100%" src="../img/i4m_header.png" />
+            <img id="headerImage" style="width: 100%" />
           </td>
           <td style="text-align: center">
             <span id="headerText">TIMESHEET</span>
@@ -95,11 +95,8 @@
         </tr>
       </table>
       <div id="footerText">
-        <span>In4Matic N.V.</span><br />
-        <span>
-          Industrieweg 190 B-9030 GENT &#8226; Tel.: +32 9 237 26 45 &#8226;
-          E-mail: info@i4m.be &#8226; www.i4m.be
-        </span>
+        <span id="footerCompany"></span><br />
+        <span id="footerDetails"></span>
       </div>
     </div>
     <script src="script.js"></script>

@@ -25,7 +25,7 @@ Officiënt will open in a new tab. After logging in, it will automatically navig
 ### Generate timesheet
 
 `Click on the extension` in the navigation bar when the Officiënt calendar tab is active. A timesheet will automatically be generated based on the off days from the calendar.
-![In4Matic timesheet](Images/Extension_1_wide.png)
+![In4Matic timesheet](Images/Extension_4_marquee.png)
 The timesheet can be edited and printed for signing afterwards.
 
 ### Options

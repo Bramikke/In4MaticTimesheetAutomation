@@ -3,11 +3,37 @@ let notesEnabled = false;
 function getStorageData() {
   chrome.storage.local.get(
     {
+      company: 'i4m',
       employee: '',
       client: '',
       supervisor: '',
     },
     (items) => {
+      const headerImage = document.getElementById('headerImage');
+      const footerCompany = document.getElementById('footerCompany');
+      const footerDetails = document.getElementById('footerDetails');
+      switch (items.company) {
+        case 'i4m':
+          headerImage.src = '../img/i4m_header.png';
+          footerCompany.innerText = 'In4Matic N.V.';
+          footerDetails.innerHTML =
+            'Vosselarestraat 73, 9850 DEINZE &#8226; Tel.: +32 9 237 26 40 &#8226; E-mail: info@i4m.be &#8226; www.i4m.be';
+          break;
+        case 'i4f':
+          headerImage.src = '../img/i4f_header.png';
+          footerCompany.innerText = 'I4F';
+          footerDetails.innerHTML =
+            'Nevelestraat 106, 9880 AALTER &#8226; Tel.: +32 9 237 26 40 &#8226; E-mail: info@i4f.be &#8226; www.i4f.be';
+          break;
+        case '4it':
+          headerImage.src = '../img/4it_header.png';
+          footerCompany.innerText = '4IT Consulting';
+          footerDetails.innerHTML =
+            'Zeerobbenlaan 5, 8300 KNOKKE &#8226; Tel.: +32 9 237 26 40 &#8226; E-mail: info@4it.consulting &#8226; www.4it.consulting';
+          break;
+        default:
+          break;
+      }
       document.getElementById('employee').innerText = items.employee;
       document.getElementById('client').innerText = items.client;
       document.getElementById('supervisor').innerText = items.supervisor;
