@@ -51,6 +51,7 @@ input {
 }
 
 #container {
+    background: #fff;
     max-width: 800px;
     margin: 0 auto;
     padding: 50px;
@@ -116,9 +117,22 @@ input {
     width: 150px;
 }
 
+table#footer {
+    white-space: nowrap;
+}
+
 #footer tr {
-    vertical-align: baseline;
+    vertical-align: top;
     height: 100px;
+    max-height: 100px;
+}
+
+#footer td:first-child {
+    width: fit-content;
+}
+
+#footer td:last-child {
+    min-width: 150px;
 }
 
 #footerText {

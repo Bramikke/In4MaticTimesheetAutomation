@@ -44,7 +44,7 @@
           <td><b>Employee Name:</b></td>
           <td id="employee" contenteditable></td>
           <td></td>
-          <td style="text-align: right">
+          <td style="text-align: right; white-space: nowrap">
             <b>Month/Year:</b>
             <input type="month" id="currentmonth" />
             <span id="printcurrentmonth"></span>
@@ -83,13 +83,19 @@
       <table id="footer">
         <tr>
           <td>Employee Signature:</td>
-          <td></td>
-          <td></td>
-          <td>Date:</td>
+          <td style="width: 100%">
+            <img
+              id="signature"
+              style="display: inline; max-width: 100%; max-height: 70px"
+            />
+          </td>
+          <td>
+            Date:
+            <span id="signaturedate" contenteditable></span>
+          </td>
         </tr>
         <tr>
           <td>Supervisor Signature:</td>
-          <td></td>
           <td></td>
           <td>Date:</td>
         </tr>

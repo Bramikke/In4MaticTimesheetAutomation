@@ -7,6 +7,7 @@ function getStorageData() {
       employee: '',
       client: '',
       supervisor: '',
+      signature: null,
     },
     (items) => {
       const headerImage = document.getElementById('headerImage');
@@ -37,6 +38,15 @@ function getStorageData() {
       document.getElementById('employee').innerText = items.employee;
       document.getElementById('client').innerText = items.client;
       document.getElementById('supervisor').innerText = items.supervisor;
+      if (items.signature) {
+        document.getElementById('signature').src = items.signature;
+        document.getElementById('signaturedate').innerText =
+          new Date().toLocaleDateString('nl-BE', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          });
+      }
     }
   );
   chrome.storage.local.get(

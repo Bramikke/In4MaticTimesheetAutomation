@@ -9,6 +9,12 @@
       crossorigin="anonymous"
     />
     <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+      integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+      crossorigin="anonymous"
+    />
+    <link
       href="https://fonts.googleapis.com/css?family=Montserrat"
       rel="stylesheet"
     />
@@ -44,6 +50,26 @@
         <div class="form-group">
           <label for="supervisor">Supervisor Name</label>
           <input type="text" class="form-control" id="supervisor" />
+        </div>
+        <div id="signaturegroup" class="form-group">
+          <label for="signaturebutton">Signature <span>(Optional)</span></label>
+          <button
+            type="button"
+            id="signaturebutton"
+            class="form-control btn btn-outline-secondary"
+          >
+            Upload signature
+          </button>
+          <button
+            type="button"
+            id="signatureremove"
+            class="btn btn-outline-secondary"
+            title="Remove signature"
+          >
+            <i class="fas fa-times" style="color: red"></i>
+          </button>
+
+          <input type="file" id="signature" style="display: none" accept=".png,.jpg,.jpeg" />
         </div>
 
         <div id="status"></div>
