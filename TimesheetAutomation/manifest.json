@@ -1,16 +1,18 @@
 {
     "manifest_version": 2,
-
     "name": "Timesheet Automation",
     "description": "Automatically generate timesheet based on Officient.io",
-    "version": "2.2",
-
-    "permissions": ["activeTab", "storage", "tabs", "https://selfservice.officient.io/daysoff"],
-
-    "icons": { 
+    "version": "2.3",
+    "permissions": [
+        "activeTab",
+        "storage",
+        "tabs",
+        "https://selfservice.officient.io/daysoff"
+    ],
+    "icons": {
         "16": "img/icon16.png",
         "48": "img/icon48.png",
-        "128": "img/icon128.png" 
+        "128": "img/icon128.png"
     },
     "options_page": "options/index.html",
     "browser_action": {
@@ -23,14 +25,22 @@
     },
     "content_scripts": [
         {
-            "matches": ["https://selfservice.officient.io/daysoff"],
+            "matches": [
+                "https://selfservice.officient.io/daysoff"
+            ],
             "run_at": "document_start",
-            "js": ["inject.js"]
+            "js": [
+                "inject.js"
+            ]
         }
     ],
-    "web_accessible_resources": ["injected.js"],
+    "web_accessible_resources": [
+        "injected.js"
+    ],
     "background": {
-      "scripts": ["background.js"],
-      "persistent": false
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
     }
 }
