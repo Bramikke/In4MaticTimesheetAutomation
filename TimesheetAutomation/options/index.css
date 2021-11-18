@@ -1,44 +1,48 @@
 body {
-    width: 400px;
-    margin: 0 auto;
-    min-height: 100vh;
-    background: rgb(255,255,255);
-    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(237,255,227,1) 100%);
+  width: 400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(237, 255, 227, 1) 100%
+  );
 }
 
 #headerText {
-    font-size: 30px;
-    font-weight: bold;
-    color: #5fa137;
-    font-family: 'Montserrat';
+  font-size: 30px;
+  font-weight: bold;
+  color: #5fa137;
+  font-family: 'Montserrat';
 }
 
 #container {
-    background: #fff;
-    padding: 25px;
-    margin: 5px 0 0;
-    border-radius: 5px;
-    border: 1px solid #ddd;
+  background: #fff;
+  padding: 25px;
+  margin: 5px 0 0;
+  border-radius: 15px;
+  border: 1px solid #ddd;
 }
 
 #signatureremove {
-    display: none;
-    width: 40px;
-    position: absolute;
-    border-radius: 0 .25rem .25rem 0;
-    border-left: none;
+  display: none;
+  width: 40px;
+  position: absolute;
+  border-radius: 0 0.25rem 0.25rem 0;
+  border-left: none;
 }
 
 label > span {
-    font-size: 0.60rem;
-    color: gray;
+  font-size: 0.6rem;
+  color: gray;
 }
 
 .signatureuploaded #signaturebutton {
-    width: calc(100% - 40px);
-    border-radius: .25rem 0 0 .25rem;
+  width: calc(100% - 40px);
+  border-radius: 0.25rem 0 0 0.25rem;
 }
 
 .signatureuploaded #signatureremove {
-    display: inline-block;
+  display: inline-block;
 }

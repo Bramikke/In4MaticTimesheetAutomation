@@ -9,7 +9,7 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
   // Officient self service is open
   showGeneratingMessage(content);
   setTimeout(() => {
-    generateTimesheet(tabs[0]);
+    generateTimesheet();
   }, 1000);
 });
 
@@ -59,56 +59,9 @@ function showGeneratingMessage(content) {
   content.appendChild(nHeader);
 }
 
-function onAttach(tabId) {
-  //first enable the Network
-  chrome.debugger.sendCommand({ tabId: tabId }, 'Network.enable');
-  chrome.debugger.onEvent.addListener(allEventHandler);
-}
-
-function allEventHandler(debuggeeId, message, params) {
-  if (currentTab.id != debuggeeId.tabId) {
-    return;
-  }
-
-  if (message == 'Network.responseReceived') {
-    //response return
-    chrome.debugger.sendCommand(
-      {
-        tabId: debuggeeId.tabId,
-      },
-      'Network.getResponseBody',
-      {
-        requestId: params.requestId,
-      },
-      function (response) {
-        // you get the response body here!
-        // you can close the debugger tips by:
-        chrome.debugger.detach(debuggeeId);
-      }
-    );
-  }
-}
-
-function generateTimesheet(tab) {
-  // get days_off from localstorage in active tab
-  chrome.tabs.executeScript(
-    tab.id,
-    {
-      code: `localStorage['days_off']`,
-    },
-    async (days_off) => {
-      if (days_off[0]) {
-        days_off = JSON.parse(days_off);
-        // save days_off to storage of extension
-        chrome.storage.local.set({
-          load_type: 'officient',
-          days_off,
-        });
-      }
-      // create template in new tab
-      chrome.tabs.create({
-        url: chrome.extension.getURL('../timesheet/template.html'),
-      });
-    }
-  );
+function generateTimesheet() {
+  // create template in new tab
+  chrome.tabs.create({
+    url: chrome.extension.getURL('../timesheet/template.html'),
+  });
 }

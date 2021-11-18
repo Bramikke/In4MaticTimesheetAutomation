@@ -163,6 +163,7 @@ function loadWorkingDays(date, days_off) {
       month: '2-digit',
       day: '2-digit',
     });
+    addcell1.title = 'Press BACKSPACE in cell to remove row';
     addrow.appendChild(addcell1);
     const addcell2 = document.createElement('td');
     addcell2.contentEditable = true;
@@ -171,6 +172,7 @@ function loadWorkingDays(date, days_off) {
     const addcell3 = document.createElement('td');
     addcell3.contentEditable = true;
     addcell3.innerText = '0';
+    addcell3.title = 'Press TAB in cell to insert new row';
     addrow.appendChild(addcell3);
     const addcell4 = document.createElement('td');
     addrow.appendChild(addcell4);
@@ -190,7 +192,7 @@ function addRowListener(row) {
   cells[0].addEventListener('keyup', removeRow);
   cells[1].addEventListener('keyup', calculateTotals);
   cells[2].addEventListener('keyup', calculateTotals);
-  cells[cells.length - 2].addEventListener('keydown', addRow);
+  cells[2].addEventListener('keydown', addRow);
 }
 
 function removeRow(e) {

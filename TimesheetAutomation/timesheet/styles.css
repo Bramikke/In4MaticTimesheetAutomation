@@ -1,173 +1,178 @@
 body {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin: 0;
-    -webkit-print-color-adjust: exact !important;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 0;
+  -webkit-print-color-adjust: exact !important;
+  background: #f0f3ee;
 }
 
 input {
-    border: none;
-    font-family: inherit;
-    font-size: inherit;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .warn-success {
-    color: green;
-    animation: hide 1s linear 5s 1 forwards;
+  color: green;
+  font-size: 14px;
+  animation: hide 1s linear 5s 1 forwards;
 }
 
 .warn-error {
-    color: red;
-    animation: hide 1s linear 5s 1 forwards;
+  color: red;
+  font-size: 14px;
+  animation: hide 1s linear 5s 1 forwards;
 }
 
 #floatbox {
-    margin: 20px;
-    float: right;
-    text-align: right;
+  margin: 0 20px;
+  float: right;
+  text-align: right;
 }
 
 .button {
-    background-color: white;
-    border: 2px solid #5fa137;
-    border-radius: 5px;
-    transition-duration: 0.4s;
-    font-size: 15px;
-    box-shadow: 0 3px #999;
+  background-color: white;
+  border: 2px solid #5fa137;
+  border-radius: 5px;
+  transition-duration: 0.4s;
+  font-size: 15px;
+  box-shadow: 0 3px #999;
 }
 
 .button img {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 .button:hover {
-    background-color: #60a1375e;
+  background-color: #60a1375e;
 }
 
 .button:active,
 .button.active {
-    background-color: #60a1375e;
-    box-shadow: none;
-    transform: translateY(3px);
+  background-color: #60a1375e;
+  box-shadow: none;
+  transform: translateY(3px);
 }
 
 #container {
-    background: #fff;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 50px;
-    min-height: 100vh;
-    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #fff;
+  max-width: 800px;
+  margin: 20px auto;
+  border-radius: 25px;
+  padding: 50px;
+  min-height: 100vh;
+  box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 #header,
 #subheader,
 #content,
 #footer {
-    border-collapse: collapse;
-    width: 100%;
+  border-collapse: collapse;
+  width: 100%;
 }
 
 #subheader,
 #content {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 #headerText {
-    font-size: 50px;
-    font-weight: bold;
-    color: #5fa137;
-    font-family: 'Montserrat';
+  font-size: 50px;
+  font-weight: bold;
+  color: #5fa137;
+  font-family: 'Montserrat';
 }
 
 #subheader td:first-of-type {
-    width: 1%;
-    white-space: nowrap;
+  width: 1%;
+  white-space: nowrap;
 }
 
 #subheader td:nth-child(2) {
-    min-width: 50px;
+  min-width: 50px;
 }
 
 #printcurrentmonth {
-    display: none;
+  display: none;
 }
 
 #content td:nth-child(-n + 4),
 #content th:nth-child(-n + 4) {
-    text-align: center;
-    border-right: solid 1px #000;
-    border-left: solid 1px #000;
+  text-align: center;
+  border-right: solid 1px #000;
+  border-left: solid 1px #000;
 }
 
 #content tbody td:first-of-type {
-    text-align: right;
+  text-align: right;
 }
 
 #content tbody tr:nth-child(odd) {
-    background-color: #bbdaa5;
+  background-color: #bbdaa5;
 }
 
 #content tbody td:nth-child(4) {
-    background-color: lightgray;
+  background-color: lightgray;
 }
 
-#content tbody td:nth-child(n+5) {
-    background-color: white;
-    width: 150px;
+#content tbody td:nth-child(n + 5) {
+  background-color: white;
+  width: 150px;
 }
 
 table#footer {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 #footer tr {
-    vertical-align: top;
-    height: 100px;
-    max-height: 100px;
+  vertical-align: top;
+  height: 100px;
+  max-height: 100px;
 }
 
 #footer td:first-child {
-    width: fit-content;
+  width: fit-content;
 }
 
 #footer td:last-child {
-    min-width: 150px;
+  min-width: 150px;
 }
 
 #footerText {
-    text-align: center;
-    color: lightgray;
+  text-align: center;
+  color: lightgray;
 }
 
 .total {
-    font-weight: bold;
-    font-size: 1.5em;
+  font-weight: bold;
+  font-size: 1.5em;
 }
 
 @media print {
-    body {
-        zoom: 0.9;
-    }
+  body {
+    zoom: 0.9;
+  }
 
-    #floatbox,
-    #currentmonth {
-        display: none;
-    }
+  #floatbox,
+  #currentmonth {
+    display: none;
+  }
 
-    #container {
-        box-shadow: none;
-        min-height: fit-content;
-        padding: 0;
-    }
+  #container {
+    box-shadow: none;
+    min-height: fit-content;
+    padding: 0;
+    margin: 0 auto;
+    border-radius: 0;
+  }
 
-    #printcurrentmonth {
-        display: inline-block;
-    }
+  #printcurrentmonth {
+    display: inline-block;
+  }
 }
 
 @keyframes hide {
-    to {
-        opacity: 0;
-    }
+  to {
+    opacity: 0;
+  }
 }
