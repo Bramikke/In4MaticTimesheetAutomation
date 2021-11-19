@@ -53,6 +53,7 @@ function getStorageData() {
     {
       load_type: null,
       days_off: null,
+      year: null,
     },
     (data) => {
       console.log(data);
@@ -83,13 +84,25 @@ function daysoffLoaded(data) {
 function loadMonth(data) {
   let date = new Date();
   const days_off = data.days_off;
-  // if days_off, find calendar year
-  if (days_off?.company_days_off?.length > 0) {
-    const data_date = new Date(data.days_off.company_days_off[0].date);
-    data_date.setMonth(0);
-    // if year is different from this year, change date
-    if (data_date.getFullYear() !== date.getFullYear()) {
-      date = data_date;
+  // set year equal to calendar year
+  if (data.load_type === 'officient') {
+    // if year is successfully read from calendar
+    if (data.year != null) {
+      const data_date = new Date(data.year);
+      // if year is different from this year, change date
+      if (data_date.getFullYear() !== date.getFullYear()) {
+        date = data_date;
+      }
+    } else {
+      // if days_off, find calendar year
+      if (days_off?.company_days_off?.length > 0) {
+        const data_date = new Date(data.days_off.company_days_off[0].date);
+        data_date.setMonth(0);
+        // if year is different from this year, change date
+        if (data_date.getFullYear() !== date.getFullYear()) {
+          date = data_date;
+        }
+      }
     }
   }
   date.setDate(1);

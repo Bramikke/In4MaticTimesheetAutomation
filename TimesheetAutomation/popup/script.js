@@ -1,4 +1,4 @@
-chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+chrome.tabs.query({ active: true, lastFocusedWindow: true }, async (tabs) => {
   let url = tabs[0].url;
   let content = document.getElementById('content');
   // When URL is not Officient self service, show error message
@@ -8,6 +8,7 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
   }
   // Officient self service is open
   showGeneratingMessage(content);
+  await readSelectedYearFomTab(tabs[0].id);
   setTimeout(() => {
     generateTimesheet();
   }, 1000);
@@ -57,6 +58,24 @@ function showGeneratingMessage(content) {
   let nHeaderText = document.createTextNode('Generating timesheet...');
   nHeader.appendChild(nHeaderText);
   content.appendChild(nHeader);
+}
+
+function readSelectedYearFomTab(tabId) {
+  return new Promise((resolve) => {
+    const code =
+      'document.querySelector(\'div[class="calendar-month-switch-name"]\').textContent';
+    chrome.tabs.executeScript(tabId, { code }, function (result) {
+      const year = result[0].match(/\d{4}/g)[0];
+      chrome.storage.local.set(
+        {
+          year,
+        },
+        function () {
+          resolve();
+        }
+      );
+    });
+  });
 }
 
 function generateTimesheet() {
