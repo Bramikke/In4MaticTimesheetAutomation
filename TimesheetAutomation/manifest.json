@@ -1,13 +1,16 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "Timesheet Automation",
     "description": "Automatically generate timesheet based on Officient.io",
-    "version": "2.5",
+    "version": "2.6",
     "permissions": [
         "activeTab",
         "storage",
         "tabs",
-        "webRequest",
+        "scripting",
+        "webRequest"
+    ],
+    "host_permissions": [
         "https://selfservice.officient.io/*"
     ],
     "icons": {
@@ -16,7 +19,7 @@
         "128": "img/icon128.png"
     },
     "options_page": "options/index.html",
-    "browser_action": {
+    "action": {
         "default_icon": {
             "16": "img/icon16.png",
             "48": "img/icon48.png",
@@ -25,9 +28,6 @@
         "default_popup": "popup/index.html"
     },
     "background": {
-        "scripts": [
-            "background.js"
-        ],
-        "persistent": true
+        "service_worker": "background.js"
     }
 }

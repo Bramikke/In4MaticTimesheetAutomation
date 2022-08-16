@@ -22,7 +22,7 @@ function registerWebRequestListener() {
 }
 
 // Create a new request with request authentication headers
-function onBeforeSendHeaders(details) {
+async function onBeforeSendHeaders(details) {
   if (
     details.url.match(
       /api\/selfservice\/secured\/days_off\/\d{4}\/listDaysOff/g
@@ -31,22 +31,24 @@ function onBeforeSendHeaders(details) {
     // pause listener to prevent infinite loop
     chrome.webRequest.onBeforeSendHeaders.removeListener(onBeforeSendHeaders);
     // create new webrequest to gather response data
-    const http = new XMLHttpRequest();
-    http.responseType = 'json';
-    http.open('GET', details.url, true);
-    http.setRequestHeader(
-      'Authselfservice',
-      // restart listener when request is done
-      details.requestHeaders.find((req) => req.name === 'Authselfservice').value
-    );
-    http.onload = function () {
-      chrome.storage.local.set({
-        load_type: 'officient',
-        days_off: http.response,
-      });
-      registerWebRequestListener();
+    const options = {
+      method: 'GET',
+      headers: new Headers({
+        Authselfservice: details.requestHeaders.find(
+          (req) => req.name === 'Authselfservice'
+        ).value,
+      }),
     };
-    http.send();
+
+    const response = await fetch(details.url, options);
+    const result = await response.json();
+
+    chrome.storage.local.set({
+      load_type: 'officient',
+      days_off: result,
+    });
+    // restart listener when request is done
+    registerWebRequestListener();
   }
 }
 

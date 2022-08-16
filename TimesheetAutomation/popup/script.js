@@ -62,25 +62,34 @@ function showGeneratingMessage(content) {
 
 function readSelectedYearFomTab(tabId) {
   return new Promise((resolve) => {
-    const code =
-      'document.querySelector(\'div[class="calendar-month-switch-name"]\').textContent';
-    chrome.tabs.executeScript(tabId, { code }, function (result) {
-      const year = result[0].match(/\d{4}/g)[0];
-      chrome.storage.local.set(
-        {
-          year,
+    chrome.scripting.executeScript(
+      {
+        target: { tabId },
+        func: function () {
+          return document.querySelector(
+            'div[class="calendar-month-switch-name"]'
+          ).textContent;
         },
-        function () {
-          resolve();
-        }
-      );
-    });
+      },
+      function (result) {
+        console.log(result);
+        const year = result[0].result.match(/\d{4}/g)[0];
+        chrome.storage.local.set(
+          {
+            year,
+          },
+          function () {
+            resolve();
+          }
+        );
+      }
+    );
   });
 }
 
 function generateTimesheet() {
   // create template in new tab
   chrome.tabs.create({
-    url: chrome.extension.getURL('../timesheet/template.html'),
+    url: chrome.runtime.getURL('../timesheet/template.html'),
   });
 }
